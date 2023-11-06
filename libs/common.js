@@ -24,7 +24,7 @@ class SearchCHApi extends c.ApiLib {
 }
 ```
  */
-export class ApiLib {
+class ApiLib {
   constructor(baseUrl) {
     this.baseUrl = baseUrl
     this._upMethods = ['POST', 'PUT', 'PATCH', 'DELETE']
@@ -119,4 +119,10 @@ class TableComponent {
     
     //console.log(this._cols)
   }
+}
+
+/////////// EXPORTS //////////
+module.exports = {
+  ApiLib,
+  TableComponent
 }
