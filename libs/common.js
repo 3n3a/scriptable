@@ -60,7 +60,7 @@ class ApiLib {
   _addQueryParam(path, key, value=null) {
     if (value) {
       let kv = `${key}=${value}`
-      if (!path.includes("&")) {
+      if (!path.includes("?")) {
         // first query param
         kv = "?" + kv
       } else {
@@ -96,7 +96,9 @@ class TableComponent {
         //console.log(`re init col [${c}]`)
         this._cols[c] = []
       }
-      this._cols[c].push(content[c])
+      
+      let curr = content[c]
+      this._cols[c].push(curr)
     }
   }
   
@@ -110,8 +112,15 @@ class TableComponent {
       colStack.textColor = this._widget.textColor
       colStack.layoutVertically()
       for (let [i, row] of rows.entries()) {
+        let color = this._widget.textColor
+        if (row.includes(";")) {
+          const splCurr = row.split(";")
+          color = new Color(splCurr[1])
+          row = splCurr[0]
+        }
+        
         let rowText = colStack.addText(`${row}`)
-        rowText.textColor = this._widget.textColor
+        rowText.textColor = color
         
         if (i === 0) rowText.font = Font.boldMonospacedSystemFont(16)
       }
@@ -125,8 +134,25 @@ class TableComponent {
   }
 }
 
+class Translate {
+  constructor(translations) {
+    this.translMap = translations || {}
+    this.lang = Device.language() // en, de
+  }
+  
+  getText(v) {
+    if (this.translMap.hasOwnProperty(v) && this.translMap[v].hasOwnProperty(this.lang)) {
+      return this.translMap[v][this.lang]
+    } else {
+      console.log(`Translation needed for '${v}' in '${this.lang}'`)
+      return v
+    }
+  }
+}
+
 /////////// EXPORTS //////////
 module.exports = {
   ApiLib,
-  TableComponent
+  TableComponent,
+  Translate
 }
