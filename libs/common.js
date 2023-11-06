@@ -9,7 +9,7 @@ Common Functions and Classes for Scriptable
  * 
  * Example:
 ```
-const c = importUrl("Lib Common", "https://raw.githubusercontent.com/3n3a/scriptable/master/libs/common.js")
+const c = await importUrl("Lib Common", "https://raw.githubusercontent.com/3n3a/scriptable/master/libs/common.js")
 
 class SearchCHApi extends c.ApiLib {
   constructor() {
@@ -102,12 +102,16 @@ class TableComponent {
   
   render() {
     this._stack = this._widget.addStack()
+    // inherit text color
+    this._stack.textColor = this._widget.textColor
     
     for (let [i, rows] of this._cols.entries()) {
       const colStack = this._stack.addStack()
+      colStack.textColor = this._widget.textColor
       colStack.layoutVertically()
       for (let [i, row] of rows.entries()) {
         let rowText = colStack.addText(`${row}`)
+        rowText.textColor = this._widget.textColor
         
         if (i === 0) rowText.font = Font.boldMonospacedSystemFont(16)
       }
