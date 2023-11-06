@@ -32,5 +32,5 @@ return importModule(codeFilename)
 /*
 Minified Version:
 
-async function importUrl(i,t){let l=FileManager.local(),e=l.isFileStoredIniCloud(module.filename);l=e?FileManager.iCloud():l;let o=l.joinPath(l.documentsDirectory(),i+".js");if(!l.fileExists(o)){let n=new Request(gitHubUrl),r=await n.loadString();l.writeString(o,r)}return e&&await l.downloadFileFromiCloud(o),importModule(i)}
+async function importUrl(i,t){let l=FileManager.local(),e=l.isFileStoredIniCloud(module.filename);l=e?FileManager.iCloud():l;let o=l.joinPath(l.documentsDirectory(),i+".js");if(!l.fileExists(o)){let n=new Request(t),r=await n.loadString();l.writeString(o,r)}return e&&await l.downloadFileFromiCloud(o),importModule(i)}
 */
